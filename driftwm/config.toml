@@ -76,7 +76,7 @@ blur_strength = 1.5
 
 [background]
 type = "shader" 
-path = "/home/latency/Pictures/Wallpaper/static/monochrome.glsl"
+path = "__HOME__/Pictures/Wallpaper/static/monochrome.glsl"
 
 [backend]
 
