@@ -14,6 +14,14 @@ echo ""
 echo "=== DriftWM Rice Installer ==="
 echo ""
 
+# ── Check for AUR helper ──
+if ! command -v yay &>/dev/null; then
+    warn "yay not found. Installing yay..."
+    sudo pacman -S --needed --noconfirm git base-devel
+    cd /tmp && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm && cd "$SCRIPT_DIR"
+    ok "yay installed"
+fi
+
 # ── Packages (official) ──
 echo "Installing packages..."
 PACKAGES=(
