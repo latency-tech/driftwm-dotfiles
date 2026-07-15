@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 RED='\033[0;31m'
@@ -32,20 +31,21 @@ PACKAGES=(
     pipewire-alsa
     pipewire-jack
     gst-plugin-pipewire
-    graphite-gtk-theme
-    bibata-cursor-theme
 )
 
 for pkg in "${PACKAGES[@]}"; do
-    if ! pacman -Qi "$pkg" &>/dev/null; then
-        sudo pacman -S --needed --noconfirm "$pkg"
+    if pacman -Qi "$pkg" &>/dev/null; then
+        ok "$pkg (already installed)"
+    elif sudo pacman -S --needed --noconfirm "$pkg" 2>/dev/null; then
         ok "$pkg installed"
     else
-        ok "$pkg already installed"
+        warn "$pkg failed to install"
     fi
 done
 
 # ── Packages (AUR) ──
+echo ""
+echo "Installing AUR packages..."
 AUR_PACKAGES=(
     gpu-screen-recorder
     gpu-screen-recorder-gtk
@@ -57,14 +57,17 @@ AUR_PACKAGES=(
     quickshell
     morewaita-icon-theme
     tela-circle-icon-theme-grey
+    graphite-gtk-theme
+    bibata-cursor-theme
 )
 
 for pkg in "${AUR_PACKAGES[@]}"; do
-    if ! pacman -Qi "$pkg" &>/dev/null && ! yay -Qi "$pkg" &>/dev/null; then
-        yay -S --needed --noconfirm "$pkg"
+    if pacman -Qi "$pkg" &>/dev/null; then
+        ok "$pkg (already installed)"
+    elif yay -S --needed --noconfirm "$pkg" 2>/dev/null; then
         ok "$pkg installed"
     else
-        ok "$pkg already installed"
+        warn "$pkg failed to install (is yay installed?)"
     fi
 done
 
@@ -72,7 +75,7 @@ done
 FONT_DIR="$HOME/.local/share/fonts"
 if [ ! -f "$FONT_DIR/0xProto-Regular.ttf" ]; then
     warn "0xProto font not found."
-    warn "Download from: https://github.com/ryanoasis/nerd-fonts/releases"
+    warn "Download from: https://github.com/nicholasgasior/gfonts-0xproto/releases"
     warn "Place in $FONT_DIR and run: fc-cache -fv"
 else
     ok "0xProto font found"
@@ -83,8 +86,7 @@ install_config() {
     local src="$1" dst="$2"
     mkdir -p "$dst"
     cp -r "$src"/* "$dst"/
-    sed -i "s|__HOME__|$HOME|g" "$dst"/* 2>/dev/null || true
-    sed -i "s|__HOME__|$HOME|g" "$dst"/**/* 2>/dev/null || true
+    find "$dst" -type f -not -name "*.jpg" -not -name "*.png" -not -name "*.gif" -not -name "*.so" -not -name "*.otf" -not -name "*.ttf" -exec sed -i "s|__HOME__|${HOME}|g" {} + 2>/dev/null || true
 }
 
 echo ""
@@ -118,8 +120,18 @@ ok "fontconfig (fonts fallback)"
 install_config "$SCRIPT_DIR/gtk-3.0" "$HOME/.config/gtk-3.0"
 ok "GTK3 theme"
 
-# ── GTK4 ──
+# ── GTK4 (no symlinks, copy real files) ──
 install_config "$SCRIPT_DIR/gtk-4.0" "$HOME/.config/gtk-4.0"
+# Recreate symlinks relative to Graphite-Dark-compact if installed
+GRAPHITE_DIR="/usr/share/themes/Graphite-Dark-compact/gtk-4.0"
+if [ -d "$GRAPHITE_DIR" ]; then
+    ln -sf "$GRAPHITE_DIR/gtk.css" "$HOME/.config/gtk-4.0/gtk.css"
+    ln -sf "$GRAPHITE_DIR/gtk-dark.css" "$HOME/.config/gtk-4.0/gtk-dark.css"
+    ln -sf "$GRAPHITE_DIR/assets" "$HOME/.config/gtk-4.0/assets"
+    ok "GTK4 symlinks (Graphite-Dark-compact)"
+else
+    warn "Graphite-Dark-compact not found, GTK4 symlinks skipped"
+fi
 ok "GTK4 theme"
 
 # ── Scripts ──
