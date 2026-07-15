@@ -1,10 +1,6 @@
 # driftwm rice
 
-![preview](preview.jpg)
-
-<video src="preview.mp4" controls width="600"></video>
-
-> **Video preview** — [click here to watch](preview.mp4)
+![preview](preview.gif)
 
 ## Install
 
