@@ -85,7 +85,7 @@ fi
 install_config() {
     local src="$1" dst="$2"
     mkdir -p "$dst"
-    cp -r "$src"/* "$dst"/
+    cp -r "$src"/* "$dst"/ 2>/dev/null || true
     find "$dst" -type f -not -name "*.jpg" -not -name "*.png" -not -name "*.gif" -not -name "*.so" -not -name "*.otf" -not -name "*.ttf" -exec sed -i "s|__HOME__|${HOME}|g" {} + 2>/dev/null || true
 }
 
@@ -130,7 +130,8 @@ if [ -d "$GRAPHITE_DIR" ]; then
     ln -sf "$GRAPHITE_DIR/assets" "$HOME/.config/gtk-4.0/assets"
     ok "GTK4 symlinks (Graphite-Dark-compact)"
 else
-    warn "Graphite-Dark-compact not found, GTK4 symlinks skipped"
+    rm -f "$HOME/.config/gtk-4.0/gtk.css" "$HOME/.config/gtk-4.0/gtk-dark.css" "$HOME/.config/gtk-4.0/assets"
+    warn "Graphite-Dark-compact not found, broken symlinks removed"
 fi
 ok "GTK4 theme"
 

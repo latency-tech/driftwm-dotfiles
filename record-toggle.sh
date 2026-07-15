@@ -9,6 +9,7 @@ else
     REGION=$(slurp -f "%wx%h+%x+%y")
     echo "REGION: $REGION" >> "$LOG"
     if [ -n "$REGION" ]; then
+        mkdir -p "$HOME/Videos"
         gpu-screen-recorder -w "$REGION" -c mp4 -q high -f 60 -o "$HOME/Videos/rec-$(date +%H%M%S).mp4" >> "$LOG" 2>&1 &
         GSR_PID=$!
         notify-send "Recording started"
