@@ -1,0 +1,147 @@
+mod_key = "super"
+focus_follows_mouse = true
+window_placement = "auto"
+autostart = [
+    "LD_LIBRARY_PATH=/usr/share/chillpill-shell/IslandBackend chillpill-shell &",
+    "wl-paste --type text --watch cliphist store",
+    "wl-paste --type image --watch cliphist store",
+]
+
+[env]
+
+[input.keyboard]
+layout = "us,ru"
+variant = ""
+options = "grp:win_space_toggle"
+model = ""
+repeat_rate = 25
+repeat_delay = 200
+layout_independent = true
+num_lock = true
+caps_lock = false
+
+[input.trackpad]
+tap_to_click = true
+natural_scroll = true
+tap_and_drag = true
+accel_speed = 0.0
+accel_profile = "adaptive"
+click_method = "none"
+
+[input.mouse]
+accel_speed = 0.0
+accel_profile = "flat"
+natural_scroll = false
+
+[cursor]
+theme = "Bibata-Modern-Ice"
+size = 24
+inactive_opacity = 0.5
+
+[navigation]
+trackpad_speed = 1.5
+mouse_speed = 1.0
+animation_speed = 0.3
+nudge_step = 20
+pan_step = 100.0
+
+[navigation.edge_pan]
+zone = 100.0
+speed_min = 4.0
+speed_max = 10.0
+
+[zoom]
+step = 1.1
+fit_padding = 80.0
+reset_on_new_window = true
+reset_on_activation = true
+
+[snap]
+enabled = true
+gap = 12.0
+distance = 24.0
+break_force = 32.0
+
+[decorations]
+bg_color = "#303030"
+fg_color = "#FFFFFF"
+corner_radius = 10
+default_mode = "minimal"
+
+[effects]
+blur_radius = 6
+blur_strength = 1.5
+
+[output.outline]
+
+[background]
+type = "shader" 
+path = "/home/latency/Pictures/Wallpaper/static/monochrome.glsl"
+
+[backend]
+
+[keybindings]
+"mod+return" = "exec-terminal"
+"mod+m" = "fit-window"
+"mod+shift+m" = "fit-window-snapped"
+"mod+equal" = "zoom-in"
+XF86AudioRaiseVolume = "spawn wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+XF86AudioNext = "spawn playerctl next"
+"mod+0" = "zoom-reset"
+XF86AudioPlay = "spawn playerctl play-pause"
+"mod+z" = "zoom-reset"
+"mod+shift+right" = "nudge-window right"
+"alt+shift+tab" = "cycle-windows backward"
+XF86MonBrightnessUp = "spawn brightnessctl set +5%"
+XF86AudioPrev = "spawn playerctl previous"
+Print = 'spawn grim -g "$(slurp -d)" - | wl-copy'
+"mod+b" = "spawn qs ipc -p /usr/share/chillpill-shell call miniDashboard toggle"
+"mod+right" = "center-nearest right"
+"mod+shift+w" = "zoom-to-fit-snapped"
+"mod+a" = "home-toggle"
+"mod+up" = "center-nearest up"
+"mod+w" = "zoom-to-fit"
+XF86AudioLowerVolume = "spawn wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+"mod+ctrl+left" = "pan-viewport left"
+"mod+alt+up" = "send-to-output up"
+"mod+l" = "spawn swaylock"
+"mod+ctrl+shift+q" = "quit"
+"mod+v" = "spawn qs ipc -p /usr/share/chillpill-shell call cliphist toggle"
+"mod+e" = "exec thunar"
+"mod+down" = "center-nearest down"
+XF86AudioStop = "spawn playerctl stop"
+"mod+ctrl+up" = "pan-viewport up"
+"mod+n" = "spawn qs ipc -p /usr/share/chillpill-shell call controlCenter toggle"
+"mod+ctrl+right" = "pan-viewport right"
+"mod+Print" = "spawn ~/.local/bin/record-toggle.sh"
+"mod+minus" = "zoom-out"
+"mod+f" = "toggle-fullscreen"
+"mod+1" = "go-to -1750 1750"
+"mod+4" = "go-to -1750 -1750"
+"mod+alt+right" = "send-to-output right"
+"mod+2" = "go-to 1750 1750"
+"mod+c" = "center-window"
+"mod+shift+left" = "nudge-window left"
+"mod+q" = "close-window"
+XF86AudioMute = "spawn wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+"mod+x" = "focus-center"
+"mod+left" = "center-nearest left"
+"alt+tab" = "cycle-windows forward"
+"mod+alt+left" = "send-to-output left"
+"mod+shift+down" = "nudge-window down"
+"mod+alt+down" = "send-to-output down"
+"mod+3" = "go-to 1750 -1750"
+XF86AudioPause = "spawn playerctl play-pause"
+"mod+shift+up" = "nudge-window up"
+"mod+d" = "exec fuzzel"
+"mod+ctrl+down" = "pan-viewport down"
+XF86MonBrightnessDown = "spawn brightnessctl set 5%-"
+"mod+ctrl+shift+r" = "spawn foot -e driftwm msg action reload-config"
+
+[[window_rules]]
+app_id = "foot"
+blur = true
+
+[[window_rules]]
+app_id = "zen"
+blur = true

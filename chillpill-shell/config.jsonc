@@ -1,0 +1,20 @@
+{
+  "displayPicture": "/home/latency/.pfp.jpg",
+  "clockFormat": "hh:mm",
+  "pillTopMargin": 10,
+  "pillBottomMargin": 10,
+  "textFontFamily": "Geist",
+  "nerdFontFamily": "JetBrainsMono Nerd Font Propo",
+  "timerPresets": [1, 5, 10, 15, 30],
+  "mediaAutoOpenDuration": 2000,
+  "maxWorkspaces": 5,
+  "notificationDisplayTime": 3000,
+  "maxNotificationsInStack": 20,
+  "bandwidthRefreshInterval": 300000,
+  "screenLockAppCommand": "swaylock",
+  "osdDuration": 800,
+  "weatherLocation": "Bakhchysarai",
+  "weatherUnits": "metric",
+  "weatherRefreshInterval": 3600000,
+  "avoidDuplicateNotifications": true
+}
